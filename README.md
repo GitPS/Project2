@@ -1,4 +1,6 @@
 Project2
 ========
 
-Project 2 for CS 441 - Threads
+Ryan Gittins and Phillip Sime
+
+Project 2 Part 1
