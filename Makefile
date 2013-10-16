@@ -1,7 +1,7 @@
 #
 # Ryan Gittins and Phillip Sime
 #
-# CS 441: Bounded Buffer Problem
+# CS 441: Project 2 Part 1
 #
 #####################################################################
 #
