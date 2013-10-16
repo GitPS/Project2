@@ -16,4 +16,8 @@ __Test Cases__
 
 __Examples__
 
+__Question Answers__
+
+This is only applicable to part 2.
+
 __Known Bugs and Problem Areas__
