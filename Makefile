@@ -5,7 +5,7 @@
 #
 #####################################################################
 #
-# Type "make" or "make bounded-buffer" to compile your code
+# Type "make" or "make bounded_buffer" to compile your code
 # 
 # Type "make clean" to remove the executable (and any object files)
 #
@@ -20,7 +20,7 @@ PROGS=bounded_buffer
 all: $(PROGS)
 
 bounded_buffer: bounded_buffer.c bounded_buffer.h semaphore_support.o
-	$(CC) -o bounded-buffer $(CFLAGS) $(LDFLAGS) bounded_buffer.c semaphore_support.o 
+	$(CC) -o bounded_buffer $(CFLAGS) $(LDFLAGS) bounded_buffer.c semaphore_support.o 
 
 semaphore_support.o: semaphore_support.h semaphore_support.c
 	$(CC) -c -o semaphore_support.o semaphore_support.c $(CFLAGS)
