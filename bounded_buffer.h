@@ -8,18 +8,28 @@
 #ifndef BOUNDED_BUFFER_H
 #define BOUNDED_BUFFER_H
 
-/* For fork, exec, sleep */
-#include <sys/types.h>
-#include <unistd.h>
-/* For waitpid */
-#include <sys/wait.h>
-
 #include <stdio.h>
 #include <stdlib.h>
+
+#include "semaphore_support.h"
+
+typedef int buffer_item;
+#define BUFFER_SIZE 5
 
 /*
  *  TODO
  */
 int print_header(int buffer, int lifespan, int producers, int consumers);
  
+/*
+ * TODO
+ */
+int insert_item(buffer_item item);
+
+/*
+ * TODO
+ */
+int remove_item(buffer_item *item);
+
+
 #endif /* BOUNDED_BUFFER_H */

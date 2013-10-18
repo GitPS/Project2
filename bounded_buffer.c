@@ -9,7 +9,7 @@
 #include "bounded_buffer.h"
 
 int main(int argc, char * argv[]) {
-
+    int *buffer = NULL;
 	int buffer_size = -1;
 	int time_to_live = -1;
 	int producer_threads = -1;
@@ -35,7 +35,26 @@ int main(int argc, char * argv[]) {
 	consumer_threads = (int) strtol(argv[3], NULL, 10);
 	
 	print_header(buffer_size, time_to_live, producer_threads, consumer_threads);
-	
+    
+    /* Initialize buffer */
+	buffer = (int *) malloc(sizeof(int) * buffer_size);
+	if(buffer == NULL){
+	    fprintf(stderr, "Error: Failed to allocate memory! Critical failure on %d!", __LINE__);
+        exit(-1);
+	}
+    
+    // TODO
+    /* Create producer thread(s) */
+    /* Create consumer thread(s) */
+    /* Sleep */
+    /* Exit */
+    
+    /* Cleanup */
+    if(buffer != NULL){
+        free(buffer);
+        buffer = NULL;
+    }
+
 	return 1;
 }
 
@@ -48,4 +67,14 @@ int print_header(int buffer_size, int time_to_live, int producer_threads, int co
 	printf("-------------------------------\n");
 	
 	return 1;
+}
+
+int insert_item(buffer_item item){
+   
+    return 0;
+}
+
+int remove_item(buffer_item *item){
+    
+    return 0;
 }
