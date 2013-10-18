@@ -124,6 +124,8 @@ void *producer(void *threadid){
         usleep(random() % SLEEP_LIMIT);
         /* Generate random number */
         r = random() % RANDOM_LIMIT;
+        /* Insert item into buffer */
+        // TODO
     }
 }
 
@@ -132,5 +134,7 @@ void *consumer(void *threadid){
     while(TRUE){
         /* Sleep for a random period of time */
         usleep(random() % SLEEP_LIMIT);
+        /* Remove item from buffer */
+        // TODO
     }
 }
