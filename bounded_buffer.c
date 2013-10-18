@@ -13,13 +13,13 @@ void *consumer(void *threadid);
 
 int main(int argc, char * argv[]) {
     int *buffer = NULL;
-	int buffer_size = -1;
-	int time_to_live = -1;
-	int num_producer_threads = -1;
-	int num_consumer_threads = -1;
-	int rc;
+    int buffer_size = -1;
+    int time_to_live = -1;
+    int num_producer_threads = -1;
+    int num_consumer_threads = -1;
+    int rc;
 	
-	long t;
+    long t;
 
     /* Command line argument handling */
 	if(argc < 4) {
@@ -47,6 +47,9 @@ int main(int argc, char * argv[]) {
 	num_consumer_threads = (int) strtol(argv[3], NULL, 10);
 	
 	print_header(buffer_size, time_to_live, num_producer_threads, num_consumer_threads);
+	
+	/* Seed random number generator */
+	srandom(time(NULL));
     
     /* Initialize buffer */
 	buffer = (int *) malloc(sizeof(int) * buffer_size);
@@ -77,6 +80,7 @@ int main(int argc, char * argv[]) {
     
     /* Sleep */
     // TODO
+    sleep(5);
     /* Exit */
     // TODO
     
@@ -114,12 +118,12 @@ int remove_item(buffer_item *item){
 
 void *producer(void *threadid){
     buffer_item item;
+    int r;
     while(TRUE){
         /* Sleep for a random period of time */
-        // TODO
+        usleep(random() % SLEEP_LIMIT);
         /* Generate random number */
-        // TODO
-        sleep(2);
+        r = random() % RANDOM_LIMIT;
     }
 }
 
@@ -127,6 +131,6 @@ void *consumer(void *threadid){
     buffer_item item;
     while(TRUE){
         /* Sleep for a random period of time */
-        // TODO
+        usleep(random() % SLEEP_LIMIT);
     }
 }
