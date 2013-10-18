@@ -17,7 +17,7 @@
 #define TRUE  1
 #define FALSE 0
 #define RANDOM_LIMIT 10
-#define SLEEP_LIMIT 1000000
+#define SLEEP_LIMIT 1000001
 
 typedef int buffer_item;
 
