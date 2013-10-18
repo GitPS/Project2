@@ -97,7 +97,7 @@ int main(int argc, char * argv[]) {
     
     //pthread_exit(NULL);
 
-	return 1;
+	return 0;
 }
 
 int print_header(int buffer_size, int time_to_live, int producer_threads, int consumer_threads) {
@@ -108,7 +108,7 @@ int print_header(int buffer_size, int time_to_live, int producer_threads, int co
 	printf("Number of Consumer threads:%4d\n", consumer_threads);
 	printf("-------------------------------\n");
 	
-	return 1;
+	return 0;
 }
 
 int insert_item(buffer_item item){
