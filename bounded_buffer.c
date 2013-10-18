@@ -24,6 +24,11 @@ int main(int argc, char * argv[]) {
 	}
 	else if(argc == 5) {
 		buffer_size = (int) strtol(argv[4], NULL, 10);
+		/* Verify that the buffer size is a legitimate value */
+		if(buffer_size < 0 || buffer_size > 10){
+		    fprintf(stderr, "Error: Buffer size must be a number between 0 and 10!  Terminating.\n");
+		    exit(0);
+		}
 	}
 	else {
 		fprintf(stderr, "Error: Too many arguments!  Terminating.\n");
@@ -38,10 +43,10 @@ int main(int argc, char * argv[]) {
     
     /* Initialize buffer */
 	buffer = (int *) malloc(sizeof(int) * buffer_size);
-	if(buffer == NULL){
-	    fprintf(stderr, "Error: Failed to allocate memory! Critical failure on %d!", __LINE__);
+    if(buffer == NULL){
+        fprintf(stderr, "Error: Failed to allocate memory! Critical failure on %d!", __LINE__);
         exit(-1);
-	}
+    }
     
     // TODO
     /* Create producer thread(s) */
