@@ -10,14 +10,14 @@
 
 void *producer(void *threadid);
 void *consumer(void *threadid);
+buffer_item *buffer = NULL;
 
 int main(int argc, char * argv[]) {
-    int *buffer = NULL;
     int buffer_size = -1;
     int time_to_live = -1;
     int num_producer_threads = -1;
     int num_consumer_threads = -1;
-    int rc;
+    int rc, i;
 	
     long t;
 
@@ -56,6 +56,11 @@ int main(int argc, char * argv[]) {
     if(buffer == NULL){
         fprintf(stderr, "Error: Failed to allocate memory! Critical failure on %d!", __LINE__);
         exit(-1);
+    }
+    
+    /* Set initial values of the buffer to -1 */
+    for(i = 0; i < buffer_size; i++){
+        buffer[i] = -1;
     }
     
     /* Create producer thread(s) */
