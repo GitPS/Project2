@@ -10,13 +10,17 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <unistd.h>
 
 #include "semaphore_support.h"
+
+#define TRUE  0
+#define FALSE 1
 
 typedef int buffer_item;
 
 /*
- *  TODO
+ * TODO
  */
 int print_header(int buffer, int lifespan, int producers, int consumers);
  
@@ -29,6 +33,17 @@ int insert_item(buffer_item item);
  * TODO
  */
 int remove_item(buffer_item *item);
+
+/*
+ * TODO
+ */
+void *producer(void *param);
+
+/*
+ * TODO
+ */
+void *consumer(void *param);
+
 
 
 #endif /* BOUNDED_BUFFER_H */

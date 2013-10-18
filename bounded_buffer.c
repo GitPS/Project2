@@ -8,13 +8,20 @@
 
 #include "bounded_buffer.h"
 
+void *producer(void *threadid);
+void *consumer(void *threadid);
+
 int main(int argc, char * argv[]) {
     int *buffer = NULL;
 	int buffer_size = -1;
 	int time_to_live = -1;
-	int producer_threads = -1;
-	int consumer_threads = -1;
+	int num_producer_threads = -1;
+	int num_consumer_threads = -1;
+	int rc;
+	
+	long t;
 
+    /* Command line argument handling */
 	if(argc < 4) {
 		fprintf(stderr, "Error: Not enough arguments!  Terminating.\n");
 		exit(0);
@@ -36,10 +43,10 @@ int main(int argc, char * argv[]) {
 	}
 	
 	time_to_live = (int) strtol(argv[1], NULL, 10);
-	producer_threads = (int) strtol(argv[2], NULL, 10);
-	consumer_threads = (int) strtol(argv[3], NULL, 10);
+	num_producer_threads = (int) strtol(argv[2], NULL, 10);
+	num_consumer_threads = (int) strtol(argv[3], NULL, 10);
 	
-	print_header(buffer_size, time_to_live, producer_threads, consumer_threads);
+	print_header(buffer_size, time_to_live, num_producer_threads, num_consumer_threads);
     
     /* Initialize buffer */
 	buffer = (int *) malloc(sizeof(int) * buffer_size);
@@ -48,17 +55,38 @@ int main(int argc, char * argv[]) {
         exit(-1);
     }
     
-    // TODO
     /* Create producer thread(s) */
+    pthread_t producer_threads[num_producer_threads];
+    for(t = 0; t < num_producer_threads; t++){
+        rc = pthread_create(&producer_threads[t], NULL, producer, (void *)t);
+        if(rc){
+            fprintf(stderr, "Error: Could not create thread %ld\n", t);
+            exit(-1);
+        }        
+    }    
+        
     /* Create consumer thread(s) */
+    pthread_t consumer_threads[num_consumer_threads];
+    for(t = 0; t < num_consumer_threads; t++){
+        rc = pthread_create(&consumer_threads[t], NULL, consumer, (void *)t);
+        if(rc){
+            fprintf(stderr, "Error: Could not create thread %ld\n", t);
+            exit(-1);
+        }        
+    } 
+    
     /* Sleep */
+    // TODO
     /* Exit */
+    // TODO
     
     /* Cleanup */
     if(buffer != NULL){
         free(buffer);
         buffer = NULL;
     }
+    
+    //pthread_exit(NULL);
 
 	return 1;
 }
@@ -82,4 +110,23 @@ int insert_item(buffer_item item){
 int remove_item(buffer_item *item){
     
     return 0;
+}
+
+void *producer(void *threadid){
+    buffer_item item;
+    while(TRUE){
+        /* Sleep for a random period of time */
+        // TODO
+        /* Generate random number */
+        // TODO
+        sleep(2);
+    }
+}
+
+void *consumer(void *threadid){
+    buffer_item item;
+    while(TRUE){
+        /* Sleep for a random period of time */
+        // TODO
+    }
 }
