@@ -20,6 +20,9 @@ int main(int argc, char * argv[]) {
     int rc, i;
 	
     long t;
+	
+	semaphore_t mutex;
+	semaphore_create(&mutex, 1); 
 
     /* Command line argument handling */
 	if(argc < 4) {
@@ -81,7 +84,26 @@ int main(int argc, char * argv[]) {
             fprintf(stderr, "Error: Could not create thread %ld\n", t);
             exit(-1);
         }        
-    } 
+    }
+	
+	/* Loop until time_to_live seconds have elapsed */
+	int start_time = (int)time(NULL);
+	
+	while((int)time(NULL) - start_time < time_to_live) {
+	
+		semaphore_wait(&mutex);
+		
+		/*** Critical Section ***/
+		/* Produce or Consume */
+		/* Increment or Decrement */
+		/* Print buffer */
+		
+		semaphore_post(&mutex);
+		
+		/*** Remainder Section ***/
+		/* Sleep for up to one second */
+	
+	}
     
     /* Sleep */
     // TODO
@@ -97,6 +119,7 @@ int main(int argc, char * argv[]) {
     
     //pthread_exit(NULL);
 
+	semaphore_destroy(&mutex);
 	return 0;
 }
 
