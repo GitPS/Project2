@@ -35,7 +35,7 @@ int main(int argc, char * argv[]) {
 	else if(argc == 5) {
 		buffer_size = (int) strtol(argv[4], NULL, 10);
 		/* Verify that the buffer size is a legitimate value */
-		if(buffer_size < 0 || buffer_size > 10){
+		if(buffer_size < 1 || buffer_size > 10){
 		    fprintf(stderr, "Error: Buffer size must be a number between 0 and 10!  Terminating.\n");
 		    exit(0);
 		}
