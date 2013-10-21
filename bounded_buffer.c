@@ -143,7 +143,7 @@ int insert_item(buffer_item item){
 
 int remove_item(buffer_item *item){
     // TODO
-    // This should remove an item into the buffer.
+    // This should remove an item from the buffer.
     // It must lock the buffer before it removes.
     return 0;
 }
