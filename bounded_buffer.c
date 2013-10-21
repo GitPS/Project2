@@ -143,21 +143,20 @@ int insert_item(buffer_item item){
 
 int remove_item(buffer_item *item){
     // TODO
-    // This should insert an item into the buffer.
+    // This should remove an item into the buffer.
     // It must lock the buffer before it removes.
     return 0;
 }
 
 void *producer(void *threadid){
     buffer_item item;
-    int r;
     while(TRUE){
         /* Sleep for a random period of time */
         usleep(random() % SLEEP_LIMIT);
         /* Generate random number */
-        r = random() % RANDOM_LIMIT;
+        item = random() % RANDOM_LIMIT;
         /* Insert item into buffer */
-        // TODO
+        insert_item(item);
     }
 }
 
