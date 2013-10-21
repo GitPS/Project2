@@ -135,12 +135,16 @@ int print_header(int buffer_size, int time_to_live, int producer_threads, int co
 }
 
 int insert_item(buffer_item item){
-   
+    // TODO
+    // This should insert an item into the buffer.
+    // It must lock the buffer before it inserts.   
     return 0;
 }
 
 int remove_item(buffer_item *item){
-    
+    // TODO
+    // This should insert an item into the buffer.
+    // It must lock the buffer before it removes.
     return 0;
 }
 
