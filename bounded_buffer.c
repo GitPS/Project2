@@ -11,6 +11,8 @@
 void *producer(void *threadid);
 void *consumer(void *threadid);
 buffer_item *buffer = NULL;
+int in = 0;
+int out = 0;
 
 int main(int argc, char * argv[]) {
     int buffer_size = -1;
