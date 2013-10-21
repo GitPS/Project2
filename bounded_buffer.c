@@ -20,9 +20,6 @@ int main(int argc, char * argv[]) {
     int rc, i;
 	
     long t;
-	
-	semaphore_t mutex;
-	semaphore_create(&mutex, 1); 
 
     /* Command line argument handling */
 	if(argc < 4) {
@@ -50,6 +47,15 @@ int main(int argc, char * argv[]) {
 	num_consumer_threads = (int) strtol(argv[3], NULL, 10);
 	
 	print_header(buffer_size, time_to_live, num_producer_threads, num_consumer_threads);
+	
+	
+	/* Create Semaphores */
+	semaphore_t mutex;
+	semaphore_t full;
+	semaphore_t empty;
+	semaphore_create(&mutex, 1);
+	semaphore_create(&full, 0);
+	semaphore_create(&empty, buffer_size);
 	
 	/* Seed random number generator */
 	srandom(time(NULL));
@@ -101,6 +107,9 @@ int main(int argc, char * argv[]) {
     //pthread_exit(NULL);
 
 	semaphore_destroy(&mutex);
+	semaphore_destroy(&full);
+	semaphore_destroy(&empty);
+	
 	return 0;
 }
 
@@ -136,8 +145,13 @@ void *producer(void *threadid){
         usleep(random() % SLEEP_LIMIT);
         /* Generate random number */
         item = random() % RANDOM_LIMIT;
+		semaphore_wait(empty);
+		semaphore_wait(mutex);
         /* Insert item into buffer */
         insert_item(item);
+		/* TODO: Print Buffer */
+		semaphore_post(mutex);
+		semaphore_post(full);
     }
 }
 
@@ -146,7 +160,12 @@ void *consumer(void *threadid){
     while(TRUE){
         /* Sleep for a random period of time */
         usleep(random() % SLEEP_LIMIT);
-        /* Remove item from buffer */
-        // TODO
+		semaphore_wait(full);
+		semaphore_wait(mutex);
+        /* TODO: Remove item from buffer */
+        /* TODO: Print Buffer */
+		semaphore_post(mutex);
+		semaphore_post(empty);
+		/* TODO: Consume the next item */
     }
 }
