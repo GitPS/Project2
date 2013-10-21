@@ -85,29 +85,10 @@ int main(int argc, char * argv[]) {
             exit(-1);
         }        
     }
-	
-	/* Loop until time_to_live seconds have elapsed */
-	int start_time = (int)time(NULL);
-	
-	while((int)time(NULL) - start_time < time_to_live) {
-	
-		semaphore_wait(&mutex);
-		
-		/*** Critical Section ***/
-		/* Produce or Consume */
-		/* Increment or Decrement */
-		/* Print buffer */
-		
-		semaphore_post(&mutex);
-		
-		/*** Remainder Section ***/
-		/* Sleep for up to one second */
-	
-	}
     
     /* Sleep */
-    // TODO
-    sleep(5);
+    sleep(time_to_live);
+    
     /* Exit */
     // TODO
     
