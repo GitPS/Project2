@@ -52,12 +52,12 @@ int main(int argc, char * argv[]) {
 	
 	
 	/* Create Semaphores */
-	semaphore_t mutex;
-	semaphore_t full;
-	semaphore_t empty;
-	semaphore_create(&mutex, 1);
-	semaphore_create(&full, 0);
-	semaphore_create(&empty, buffer_size);
+	//semaphore_t mutex;
+	//semaphore_t full;
+	//semaphore_t empty;
+	//semaphore_create(&mutex, 1);
+	//semaphore_create(&full, 0);
+	//semaphore_create(&empty, buffer_size);
 	
 	/* Seed random number generator */
 	srandom(time(NULL));
@@ -108,9 +108,9 @@ int main(int argc, char * argv[]) {
     
     //pthread_exit(NULL);
 
-	semaphore_destroy(&mutex);
-	semaphore_destroy(&full);
-	semaphore_destroy(&empty);
+	//semaphore_destroy(&mutex);
+	//semaphore_destroy(&full);
+	//semaphore_destroy(&empty);
 	
 	return 0;
 }
@@ -142,32 +142,38 @@ int remove_item(buffer_item *item){
 
 void *producer(void *threadid){
     buffer_item item;
+    long thread_id = (long)threadid;
+    // DEBUG INFO
+    printf("DEBUG: Producer Thread %ld created.\n",thread_id); 
     while(TRUE){
         /* Sleep for a random period of time */
         usleep(random() % SLEEP_LIMIT);
         /* Generate random number */
         item = random() % RANDOM_LIMIT;
-		semaphore_wait(empty);
-		semaphore_wait(mutex);
+		//semaphore_wait(empty);
+		//semaphore_wait(mutex);
         /* Insert item into buffer */
         insert_item(item);
 		/* TODO: Print Buffer */
-		semaphore_post(mutex);
-		semaphore_post(full);
+		//semaphore_post(mutex);
+		//semaphore_post(full);
     }
 }
 
 void *consumer(void *threadid){
     buffer_item item;
+    long thread_id = (long)threadid;
+    // DEBUG INFO
+    printf("DEBUG: Consumer Thread %ld created.\n",thread_id);
     while(TRUE){
         /* Sleep for a random period of time */
         usleep(random() % SLEEP_LIMIT);
-		semaphore_wait(full);
-		semaphore_wait(mutex);
+		//semaphore_wait(full);
+		//semaphore_wait(mutex);
         /* TODO: Remove item from buffer */
         /* TODO: Print Buffer */
-		semaphore_post(mutex);
-		semaphore_post(empty);
+		//semaphore_post(mutex);
+		//semaphore_post(empty);
 		/* TODO: Consume the next item */
     }
 }
