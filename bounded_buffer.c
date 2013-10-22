@@ -155,7 +155,7 @@ void *producer(void *threadid){
         /* Insert item into buffer */
         insert_item(item);
         // DEBUG
-        printf("Producer Thread %ld produced %d\n", thread_id, item);
+        printf("DEBUG: Producer Thread %ld produced %d\n", thread_id, item);
         fflush(NULL);
 		/* TODO: Print Buffer */
 		semaphore_post(&mutex);
