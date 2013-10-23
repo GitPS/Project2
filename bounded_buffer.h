@@ -22,29 +22,47 @@
 typedef int buffer_item;
 
 /*
- * TODO
+ * Print header information.
+ *   buffer : size of buffer
+ *   lifespawn : time in seconds program should run for
+ *   producers : number of producer threads
+ *   consumers : number of consumer threads
+ * Returns 0 on success
  */
 int print_header(int buffer, int lifespan, int producers, int consumers);
  
 /*
- * TODO
+ * Insert an item info the buffer.
+ *   item : item to insert into buffer
+ *   thread_id : thread id of the calling thread
+ * Returns 0 on success
  */
-int insert_item(buffer_item item);
+int insert_item(buffer_item item, long thread_id);
 
 /*
- * TODO
+ * Insert an item info the buffer.
+ *   thread_id : thread id of the calling thread
+ * Returns 0 on success
  */
-int remove_item(buffer_item *item);
+int remove_item(long thread_id);
 
 /*
- * TODO
+ * Thread that will produce random items to place into a buffer.
+ * This thread will also sleep for random amounts of time before
+ * each item is produced.
+ *   threadid : thread id in relation to the order it was created
+ * Returns 0 on success
  */
-void *producer(void *param);
+void *producer(void *threadid);
 
 /*
- * TODO
+ * Thread that will consume the next item from a buffer.
+ * This thread will also sleep for random amounts of time before
+ * it consumes the next item.
+ *   threadid : thread id in relation to the order it was created
+ * Returns 0 on success
  */
-void *consumer(void *param);
+void *consumer(void *threadid);
 
 
 

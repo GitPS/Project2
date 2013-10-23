@@ -14,11 +14,11 @@ semaphore_t mutex;
 semaphore_t full;
 semaphore_t empty;
 buffer_item *buffer = NULL;
+int buffer_size = 0;
 int in = 0;
 int out = 0;
 
 int main(int argc, char * argv[]) {
-    int buffer_size = -1;
     int time_to_live = -1;
     int num_producer_threads = -1;
     int num_consumer_threads = -1;
@@ -74,6 +74,18 @@ int main(int argc, char * argv[]) {
         buffer[i] = -1;
     }
     
+    /* Print initial buffer */
+	printf("Initial Buffer:              [");
+	for(i = 0; i < buffer_size; i++){
+	    if(in == i && out == i){
+            printf("%*d^v", 4, buffer[i]);
+        }
+        else{
+            printf("%*d", 4, buffer[i]);	    
+        }
+	}
+	printf(" ]\n");
+    
     /* Create producer thread(s) */
     pthread_t producer_threads[num_producer_threads];
     for(t = 0; t < num_producer_threads; t++){
@@ -97,16 +109,11 @@ int main(int argc, char * argv[]) {
     /* Sleep */
     sleep(time_to_live);
     
-    /* Exit */
-    // TODO
-    
     /* Cleanup */
     if(buffer != NULL){
         free(buffer);
         buffer = NULL;
     }
-    
-    //pthread_exit(NULL);
 
 	semaphore_destroy(&mutex);
 	semaphore_destroy(&full);
@@ -126,57 +133,110 @@ int print_header(int buffer_size, int time_to_live, int producer_threads, int co
 	return 0;
 }
 
-int insert_item(buffer_item item){
-    // TODO
-    // This should insert an item into the buffer.
-    // It must lock the buffer before it inserts.   
+int insert_item(buffer_item item, long thread_id){
+    /* Add the provided item to the buffer */
+    buffer[in] = item;
+
+    /* Check to see if we have reached the limit of our buffer.  If we have wrap around. */
+    in = (in + 1) % buffer_size;
+    
+    /* Print buffer */
+    int i;
+    printf("Producer   %ld: Produced %d     [", thread_id, item);
+    for(i = 0; i < buffer_size; i++){
+         /* Consumer and Producer in same location */
+        if(in == i && out == i){
+            printf("%*d^v", 4, buffer[i]);
+        }
+        /* Producer location */
+        else if(in == i){
+            printf("%*d^", 4, buffer[i]);
+        }
+        /* Consumer location */
+        else if(out == i){
+            printf("%*dv", 4, buffer[i]);
+        }
+        else{
+            printf("%*d", 4, buffer[i]);
+        }
+    }
+    printf(" ]\n");
+    
     return 0;
 }
 
-int remove_item(buffer_item *item){
-    // TODO
-    // This should remove an item from the buffer.
-    // It must lock the buffer before it removes.
+int remove_item(long thread_id){
+    buffer_item item;
+    
+    /* Remove the next item from the buffer */
+    item = buffer[out];
+    buffer[out] = -1;
+    
+    /* Check to see if we have reached the limit of our buffer.  If we have wrap around. */
+    out = (out + 1) % buffer_size;
+    
+    /* Print buffer */
+    int i;
+    printf("Consumer   %ld: Consumed %d     [", thread_id, item);
+    for(i = 0; i < buffer_size; i++){
+         /* Consumer and Producer in same location */
+        if(in == i && out == i){
+            printf("%*d^v", 4, buffer[i]);
+        }
+        /* Producer location */
+        else if(in == i){
+            printf("%*d^", 4, buffer[i]);
+        }
+        /* Consumer location */
+        else if(out == i){
+            printf("%*dv", 4, buffer[i]);
+        }
+        else{
+            printf("%*d", 4, buffer[i]);
+        }
+    }
+    printf(" ]\n");
+    
     return 0;
 }
 
 void *producer(void *threadid){
     buffer_item item;
     long thread_id = (long)threadid;
-    // DEBUG INFO
-    printf("DEBUG: Producer Thread %ld created.\n",thread_id); 
+
     while(TRUE){
         /* Sleep for a random period of time */
         usleep(random() % SLEEP_LIMIT);
+        
         /* Generate random number */
         item = random() % RANDOM_LIMIT;
 		semaphore_wait(&empty);
 		semaphore_wait(&mutex);
+        
         /* Insert item into buffer */
-        insert_item(item);
-        // DEBUG
-        printf("DEBUG: Producer Thread %ld produced %d\n", thread_id, item);
+        insert_item(item, thread_id);
         fflush(NULL);
-		/* TODO: Print Buffer */
+		
+		/* Print Buffer */
 		semaphore_post(&mutex);
 		semaphore_post(&full);
     }
 }
 
 void *consumer(void *threadid){
-    buffer_item item;
     long thread_id = (long)threadid;
-    // DEBUG INFO
-    printf("DEBUG: Consumer Thread %ld created.\n",thread_id);
+
     while(TRUE){
         /* Sleep for a random period of time */
         usleep(random() % SLEEP_LIMIT);
 		semaphore_wait(&full);
 		semaphore_wait(&mutex);
-        /* TODO: Remove item from buffer */
-        /* TODO: Print Buffer */
+		
+        /* Remove item from buffer */
+        remove_item(thread_id);
+        
+        /* Print Buffer */
 		semaphore_post(&mutex);
 		semaphore_post(&empty);
-		/* TODO: Consume the next item */
     }
 }
