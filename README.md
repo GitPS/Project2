@@ -101,3 +101,4 @@ __Question Answers__
 This is only applicable to part 2.
 
 __Known Bugs and Problem Areas__
+* No bugs or problem areas are known at this time.
