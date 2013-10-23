@@ -16,9 +16,21 @@ To build this software, simply navigate to the directory containing the Makefile
 
 __Usage__
 
-To use this software, simply run the command `./bounded-buffer <time-to-live> <producers> <consumers> [buffer-size]`  Where items in `<>` are required and items in `[]` are optional.  The first argument is the length, in seconds, you wish the program to run for.  The second argument is the number of producer threads you wish the program to create and use.  The third argument is the number of consumer threads you wish the program to create and use.  The final argument, which is optional, is the size of the buffer.
+To use this software, simply run the command `./bounded-buffer [TTL] [# P Threads] [# C Threads] (Buffer Size)`  Where items in brackets are required and items in parentheses are optional.  The first argument is the length, in seconds, you wish the program to run for.  The second argument is the number of producer threads you wish the program to create and use.  The third argument is the number of consumer threads you wish the program to create and use.  The final argument, which is optional, is the size of the buffer.
 
 __Test Cases__
+
+`shell$ ./bounded-buffer 2 4 6`  The output of this test is shown in the Examples section below.  Its purpose is to demonstrate that the last parameter is optional.
+
+`shell$ ./bounded-buffer 1 5`  This test will display usage information and inform the user that they have not supplied enough arguments, and then terminate.
+
+`shell$ ./bounded-buffer 1 2 3 4 5 6`  This test will display usage information and inform the user that they have supplied too many arguments, and then terminate.
+
+`shell$ ./bounded-buffer 1 -2 3 4`  This test demonstrates the proper handling of arguments which are too small.
+
+`shell$ ./bounded-buffer 1 2 3 50`  This test demonstrates the proper handling of arguments which are too large.
+
+`shell$ ./bounded-buffer 2 2 1 4`  This test is an example of correct input and normal execution of the program.
 
 __Examples__
 
