@@ -30,7 +30,14 @@ typedef int buffer_item;
  * Returns 0 on success
  */
 int print_header(int buffer, int lifespan, int producers, int consumers);
- 
+
+/*
+ * Print usage information.
+ * No parameters.
+ * Returns 0 on success
+ */
+int print_usage();
+
 /*
  * Insert an item info the buffer.
  *   item : item to insert into buffer

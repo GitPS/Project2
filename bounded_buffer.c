@@ -28,7 +28,8 @@ int main(int argc, char * argv[]) {
 
     /* Command line argument handling */
 	if(argc < 4) {
-		fprintf(stderr, "Error: Not enough arguments!  Terminating.\n");
+		print_usage();
+		fprintf(stderr, "HINT:  You did not supply enough arguments.\n");
 		exit(0);
 	}
 	else if(argc == 4) {
@@ -38,18 +39,26 @@ int main(int argc, char * argv[]) {
 		buffer_size = (int) strtol(argv[4], NULL, 10);
 		/* Verify that the buffer size is a legitimate value */
 		if(buffer_size < 1 || buffer_size > 10){
-		    fprintf(stderr, "Error: Buffer size must be a number between 0 and 10!  Terminating.\n");
+			print_usage();
+		    fprintf(stderr, "HINT: Buffer size must be a number from 1 to 10.\n");
 		    exit(0);
 		}
 	}
 	else {
-		fprintf(stderr, "Error: Too many arguments!  Terminating.\n");
+		print_usage();
+		fprintf(stderr, "HINT: You supplied too many arguments.\n");
 		exit(0);
 	}
 	
 	time_to_live = (int) strtol(argv[1], NULL, 10);
 	num_producer_threads = (int) strtol(argv[2], NULL, 10);
 	num_consumer_threads = (int) strtol(argv[3], NULL, 10);
+	
+	if(time_to_live < 1 || num_producer_threads < 1 || num_consumer_threads < 1) {
+		print_usage();
+		fprintf(stderr, "HINT: All arguments much be greater than zero.\n");
+		exit(0);
+	}
 	
 	print_header(buffer_size, time_to_live, num_producer_threads, num_consumer_threads);
 	
@@ -130,6 +139,13 @@ int print_header(int buffer_size, int time_to_live, int producer_threads, int co
 	printf("Number of Consumer threads:%4d\n", consumer_threads);
 	printf("-------------------------------\n");
 	
+	return 0;
+}
+
+int print_usage() {
+
+	printf("USAGE:\n    ./bounded-buffer <time-to-live> <producers> <consumers> [buffer-size]\n");
+
 	return 0;
 }
 
