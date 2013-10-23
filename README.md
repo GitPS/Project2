@@ -98,7 +98,7 @@ Consumer    2: Consumed 9     [   6  -1^  -1  -1   8v ]
 
 __Question Answers__
 
-This is only applicable to part 2.
+Part 2
 
 __Known Bugs and Problem Areas__
 * No bugs or problem areas are known at this time.
