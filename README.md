@@ -32,6 +32,8 @@ __Test Cases__
 
 `shell$ ./bounded-buffer 2 2 1 4`  This test is an example of correct input and normal execution of the program.
 
+`shell$ ./bounded-buffer 1 400 400 5`  This test demonstrates handling of a large number of producer and consumer threads  during the exeuction of the program.
+
 __Examples__
 
 This example runs the program with `./bounded-buffer 2 4 6` to show how the program will execute using the default buffer size. 
