@@ -161,6 +161,7 @@ int insert_item(buffer_item item, long thread_id){
         }
     }
     printf(" ]\n");
+    fflush(NULL);
     
     return 0;
 }
@@ -196,6 +197,7 @@ int remove_item(long thread_id){
         }
     }
     printf(" ]\n");
+    fflush(NULL);
     
     return 0;
 }
@@ -215,7 +217,6 @@ void *producer(void *threadid){
         
         /* Insert item into buffer */
         insert_item(item, thread_id);
-        fflush(NULL);
 		
 		/* Print Buffer */
 		semaphore_post(&mutex);
