@@ -75,7 +75,7 @@ int main(int argc, char * argv[]) {
     }
     
     /* Print initial buffer */
-	printf("Initial Buffer:              [");
+	printf("Initial Buffer:               [");
 	for(i = 0; i < buffer_size; i++){
 	    if(in == i && out == i){
             printf("%*d^v", 4, buffer[i]);
@@ -142,7 +142,7 @@ int insert_item(buffer_item item, long thread_id){
     
     /* Print buffer */
     int i;
-    printf("Producer   %ld: Produced %d     [", thread_id, item);
+    printf("Producer  %*ld: Produced %d     [", 3, thread_id, item);
     for(i = 0; i < buffer_size; i++){
          /* Consumer and Producer in same location */
         if(in == i && out == i){
@@ -177,7 +177,7 @@ int remove_item(long thread_id){
     
     /* Print buffer */
     int i;
-    printf("Consumer   %ld: Consumed %d     [", thread_id, item);
+    printf("Consumer  %*ld: Consumed %d     [", 3, thread_id, item);
     for(i = 0; i < buffer_size; i++){
          /* Consumer and Producer in same location */
         if(in == i && out == i){
