@@ -8,13 +8,15 @@ Ryan Gittins and Phillip Sime
 
 __Summary__
 
+This software implements a solution to the bounded-buffer problem.  It uses semaphores to ensure that multiple threads do not access the same pieces of data concurrently.  It is called from the command line and provided with the time to run, number of producer threads, number of consumer threads, and an optional buffer size.  When the program executes it begins by creating producer and consumer threads which will begin interacting with the buffer.  A producer will select a random number between 0-9 and then place that number into the buffer in the next open position.  A consumer will consume the next item in the buffer.  Both the producer and the consumer ensure they do not interfere with each other by utilizing semaphores. 
+
 __Build__
 
 To build this software, simply navigate to the directory containing the Makefile and all other included files on a unix-based machine or virtual machine. Type the command `make` into the terminal to trigger the build. This will cause the gcc build commands listed in the Makefile to execute, compiling the source code into an executable file.
 
 __Usage__
 
-To use this software, simply run the command `./bounded-buffer [Time to Live] [Producer Threads] [ Consumer Threads] ( Buffer Size )`  Where items in brackets are required and items in parentheses are optional.  The first argument is the length, in seconds, you wish the program to run for.  The second argument is the number of producer threads you wish the program to create and use.  The third argument is the number of consumer threads you wish the program to create and use.  The final argument, which is optional, is the size of the buffer.
+To use this software, simply run the command `./bounded-buffer [TTL] [# P Threads] [# C Threads] (Buffer Size)`  Where items in brackets are required and items in parentheses are optional.  The first argument is the length, in seconds, you wish the program to run for.  The second argument is the number of producer threads you wish the program to create and use.  The third argument is the number of consumer threads you wish the program to create and use.  The final argument, which is optional, is the size of the buffer.
 
 __Test Cases__
 
@@ -96,6 +98,7 @@ Consumer    2: Consumed 9     [   6  -1^  -1  -1   8v ]
 
 __Question Answers__
 
-This is only applicable to part 2.
+Part 2
 
 __Known Bugs and Problem Areas__
+* No bugs or problem areas are known at this time.
