@@ -16,7 +16,7 @@ To build this software, simply navigate to the directory containing the Makefile
 
 __Usage__
 
-To use this software, simply run the command `./bounded-buffer <time-to-live> <producers> <consumers> [buffer-size]`  Where items in '<>' are required and items in '[]' are optional.  The first argument is the length, in seconds, you wish the program to run for.  The second argument is the number of producer threads you wish the program to create and use.  The third argument is the number of consumer threads you wish the program to create and use.  The final argument, which is optional, is the size of the buffer.
+To use this software, simply run the command `./bounded-buffer <time-to-live> <producers> <consumers> [buffer-size]`  Where items in `<>` are required and items in `[]` are optional.  The first argument is the length, in seconds, you wish the program to run for.  The second argument is the number of producer threads you wish the program to create and use.  The third argument is the number of consumer threads you wish the program to create and use.  The final argument, which is optional, is the size of the buffer.
 
 __Test Cases__
 
