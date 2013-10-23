@@ -56,7 +56,7 @@ int main(int argc, char * argv[]) {
 	
 	if(time_to_live < 1 || num_producer_threads < 1 || num_consumer_threads < 1) {
 		print_usage();
-		fprintf(stderr, "HINT: All arguments much be greater than zero.\n");
+		fprintf(stderr, "HINT: All arguments must be greater than zero.\n");
 		exit(0);
 	}
 	
