@@ -1,10 +1,10 @@
-#### CS 441 Project 2 Part 1 ####
+#### CS 441 Project 2 Part 2 ####
 
 __Authors__
 
 Ryan Gittins and Phillip Sime
 
-2013-10-14
+2013-10-24
 
 __Summary__
 
